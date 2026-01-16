@@ -1,0 +1,87 @@
+{% comment %} 
+<!DOCTYPE html>
+<html>
+<head>
+  <title>VoxCursor</title>
+  <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <div style="display:flex;justify-content:space-between;align-items:center;padding:12px 20px;background:#020617;border-bottom:1px solid #050506;">
+  <div style="font-size:22px; font-weight:700;color:#38bdf8; padding:6px 0;">
+    👋 Hi
+    <strong style="color:#38bdf8;">
+      {{ request.user.first_name|default:request.user.username }}
+    </strong>
+  </div>
+
+  <div>
+    <a href="/logout/" style="padding:8px 14px;background:#ef4444;color:white;text-decoration:none;border-radius:6px;font-size:14px;font-weight:500;transition:background 0.2s ease;"onmouseover="this.style.background='#dc2626'"onmouseout="this.style.background='#ef4444'">
+      Logout
+    </a>
+  </div>
+</div>
+
+<hr>
+
+
+<div class="chat">
+  <h2>VoxCursor</h2>
+  <div id="messages"></div>
+
+<div class="input">
+  <input id="text" placeholder="Message VoxCursor..." />
+  <button class="voice-btn" onclick="voice()" title="Voice input">🎤</button>
+  <button class="send-btn" onclick="send()" title="Send"> ↑ </button>
+</div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<script src="/static/js/app.js"></script>
+
+</body>
+</html>
+
+</body>
+</html> {% endcomment %}
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>VoxCursor</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/static/css/style.css">
+</head>
+
+<body>
+
+<!-- HEADER -->
+<header class="topbar">
+  <div class="user">
+    👋 Hi <span>{{ request.user.first_name|default:request.user.username }}</span>
+  </div>
+  <a href="/logout/" class="logout">Logout</a>
+</header>
+
+<!-- CHAT CONTAINER -->
+<main class="chat-container">
+  <div id="messages">
+  <div id="typing" class="typing hidden">
+  <span></span><span></span><span></span>
+</div>
+</div>
+  <!-- INPUT -->
+  <div class="input-bar">
+    <input id="text" placeholder="Message VoxCursor..." />
+    <button class="voice-btn" onclick="voice()">🎤</button>
+    <button class="send-btn" onclick="send()">➤</button>
+  </div>
+
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<script src="/static/js/app.js"></script>
+</body>
+</html>
