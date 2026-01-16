@@ -69,7 +69,7 @@ def logout_view(request):
     return redirect("/login/")
 
 
-@login_required
+
 @csrf_exempt
 def chat(request):
     if request.method != "POST":
