@@ -33,7 +33,7 @@ SECRET_KEY = None
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-
+import os
 SECRET_KEY = os.getenv(
     "DJANGO_SECRET_KEY",
     "django-insecure-er2h1e54b_=h@t8&rj9i=k_1oz0+x9imesph50=lyy3&$i^ke8"
@@ -41,8 +41,11 @@ SECRET_KEY = os.getenv(
 
 DEBUG = os.getenv("DEBUG", "True") == "True"
 
-ALLOWED_HOSTS = ["voxcursorweb.onrender.com"]
- # dev only
+ALLOWED_HOSTS = os.getenv(
+    "ALLOWED_HOSTS",
+    "127.0.0.1,localhost"
+).split(",")
+
 
 
 # Application definition
@@ -98,12 +101,13 @@ WSGI_APPLICATION = 'voxcursor.wsgi.application'
 import dj_database_url
 
 DATABASES = {
-    'default': dj_database_url.config(
-        default=os.environ.get("DATABASE_URL"),
+    "default": dj_database_url.config(
+        default=f"sqlite:///{BASE_DIR / 'db.sqlite3'}",
         conn_max_age=600,
-        ssl_require=True
+        ssl_require=not DEBUG,
     )
 }
+
 
 
 
@@ -149,7 +153,11 @@ STATICFILES_DIRS = [
     BASE_DIR / "static",
 ]
 
-STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+# STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+if DEBUG:
+    STATICFILES_STORAGE = "django.contrib.staticfiles.storage.StaticFilesStorage"
+else:
+    STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 
 TEMPLATES[0]['DIRS'] = [BASE_DIR / "templates"]
